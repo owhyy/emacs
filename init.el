@@ -26,8 +26,8 @@
 (require 'package)
 
 (setq package-archives '(("mepla". "https://melpa.org/packages/")
-			 ("org". "https://orgmode.org/elpa/")
-			 ("elpa". "https://elpa.gnu.org/packages/")))
+ 			 ("org". "https://orgmode.org/elpa/")
+ 			 ("elpa". "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
 (unless package-archive-contents
@@ -74,3 +74,4 @@
 	  "* %? :IDEA: \n%t" :clock-in t :clock-resume t)
 	 ("n" "Next Task" entry (file+headline org-default-notes-file "Tasks")
 	  "** NEXT %? \nDEADLINE: %t") ))
+(use-package ox-hugo)
