@@ -18,7 +18,8 @@
 
 ;; Disable line numbers for some modes
 (dolist (mode '(eshell-mode-hook
-		term-mode-hook))
+		term-mode-hook
+		olivetti-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; Make ESC quit prompts
@@ -65,19 +66,23 @@
   :init (which-key-mode)
   :diminish which-key-mode)
 
+(use-package olivetti)
+
 ;; Org-specific configuration
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 
-(setq org-directory "~/org")
-(setq org-default-notes-file (concat org-directory "/me/time.org"))
-(setq org-agenda-files '(org-default-notes-file))
-(setq org-agenda-block-separator 8411)
-(setq org-capture-templates
-       '(("t" "todo" entry (file org-default-notes-file)
-	  "* TODO %? \nSCHEDULED: %^t" :clock-in t :clock-resume t)
-	 ("i" "Idea" entry (file org-default-notes-file)
-	  "* %? :IDEA: \n%t" :clock-in t :clock-resume t)
-	 ("n" "Next Task" entry (file+headline org-default-notes-file "Tasks")
-	  "** NEXT %? \nDEADLINE: %t") ))
+(with-eval-after-load 'org
+  (setq org-directory "~/org")
+;(setq org-default-notes-file (concat org-directory "/me/time.org"))
+  (setq org-default-notes-file "~/org/me/time.org")
+  (setq org-agenda-files '(org-default-notes-file))
+  (setq org-agenda-block-separator 8411)
+  (setq org-capture-templates
+	'(("t" "todo" entry (file org-default-notes-file)
+	   "* TODO %? \nSCHEDULED: %^t" :clock-in t :clock-resume t)
+	  ("i" "Idea" entry (file org-default-notes-file)
+	   "* %? :IDEA: \n%t" :clock-in t :clock-resume t)
+	  ("n" "Next Task" entry (file+headline org-default-notes-file "Tasks")
+	   "** NEXT %? \nDEADLINE: %t") )))
 (use-package ox-hugo)
