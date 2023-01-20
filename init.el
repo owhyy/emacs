@@ -75,7 +75,6 @@
 
 (with-eval-after-load 'org
   (setq org-directory "~/org")
-;(setq org-default-notes-file (concat org-directory "/me/time.org"))
   (setq org-default-notes-file "~/org/me/time.org")
   (setq org-agenda-files '(org-default-notes-file))
   (setq org-agenda-block-separator 8411)
