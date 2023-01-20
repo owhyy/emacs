@@ -71,9 +71,11 @@
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 
-(setq org-directory "~/website/org")
-(setq org-default-notes-file (concat org-directory "/me/time.org"))
-(setq org-agenda-files '(org-default-notes-file))
+(setq org-directory "~/org/")
+;;(setq org-default-notes-file (concat org-directory "notes/notes.org"))
+(setq org-default-notes-file "~/org/me/time.org")
+(setq org-agenda-files '("~/org/me/time.org"))
+;;(setq org-agenda-files '((concat org-directory "me/time.org") org-default-notes-file))
 (setq org-agenda-block-separator 8411)
 (setq org-capture-templates
        '(("t" "todo" entry (file org-default-notes-file)
