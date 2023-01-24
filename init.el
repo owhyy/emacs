@@ -9,7 +9,7 @@
 (scroll-bar-mode -1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 150)
+(set-face-attribute 'default nil :font "TerminessTTF Nerd Font" :height 150)
 (global-set-key (kbd "<f5>") 'modus-themes-toggle)
 
 ;; Enable line numbers
@@ -19,6 +19,7 @@
 ;; Disable line numbers for some modes
 (dolist (mode '(eshell-mode-hook
 		term-mode-hook
+		pdf-view-mode-hook
 		olivetti-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
@@ -75,8 +76,8 @@
 
 (with-eval-after-load 'org
   (setq org-directory "~/org")
-  (setq org-default-notes-file "~/org/me/time.org")
-  (setq org-agenda-files '(org-default-notes-file))
+  (setq org-default-notes-file "~/org/time.org")
+  (setq org-agenda-files '("~/org/time.org"))
   (setq org-agenda-block-separator 8411)
   (setq org-capture-templates
 	'(("t" "todo" entry (file org-default-notes-file)
@@ -91,3 +92,5 @@
   (setq projectile-completion-system 'ivy)
   (projectile-mode +1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
+(use-package pdf-tools)
