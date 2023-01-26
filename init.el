@@ -79,11 +79,10 @@
   (setq org-default-notes-file "~/org/time.org")
   (setq org-agenda-files '("~/org/time.org"))
   (setq org-agenda-block-separator 8411)
+  (setq org-todo-keywords '("TODO" "NEXT" "|" "CANCELLED" "DONE"))
   (setq org-capture-templates
 	'(("t" "todo" entry (file org-default-notes-file)
-	   "* TODO %? \nSCHEDULED: %^t" :clock-in t :clock-resume t)
-	  ("i" "Idea" entry (file org-default-notes-file)
-	   "* %? :IDEA: \n%t" :clock-in t :clock-resume t)
+	   "* TODO %? \n%^t")
 	  ("n" "Next Task" entry (file+headline org-default-notes-file "Tasks")
 	   "** NEXT %? \nDEADLINE: %t") )))
 (use-package ox-hugo)
