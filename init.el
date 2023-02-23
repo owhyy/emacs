@@ -1,6 +1,12 @@
 ;; Don't use custom file
 (setq custom-file null-device)
 
+;; Don't create lockfiles
+(setq create-lockfiles nil)
+
+;; Write backups to ~/.emacs.d/backup/
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
+
 ;: GUI Tweaks
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
@@ -68,15 +74,15 @@
   :diminish which-key-mode)
 (use-package magit)
 
-(use-package olivetti)
+(use-package olivetti
+  :bind (("C-x z" . olivetti-mode)))
 
 ;; Org-specific configuration
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 
 (setq org-directory "~/org")
-(setq org-default-notes-file "~/org/time.org")
-(setq org-agenda-files '("~/org/time.org"))
+(setq org-agenda-files '("~/org/work.org" "~/org/me.org" "~/org/notes.org" "~/org/posts.org"))
 (setq org-agenda-block-separator 8411)
 (setq org-columns-default-format "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
 (setq org-todo-keywords '("TODO" "NEXT" "|" "CANCELLED" "DONE"))
@@ -92,7 +98,7 @@
     '((agenda "" ((org-agenda-span 1)
                 (org-deadline-warning-days 0)
                 (org-agenda-block-separator nil)
-                (org-scheduled-past-days 0)
+                (org-scheduled-past-days 7)
                 ;; We don't need the `org-agenda-date-today'
                 ;; highlight because that only has a practical
                 ;; utility in multi-day views.
@@ -136,3 +142,9 @@
 
 (use-package pdf-tools)
 (use-package org-superstar)
+
+(windmove-default-keybindings)
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
