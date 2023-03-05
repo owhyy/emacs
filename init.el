@@ -85,11 +85,14 @@
 (setq org-agenda-files '("~/org/work.org" "~/org/me.org" "~/org/notes.org" "~/org/posts.org"))
 (setq org-agenda-block-separator 8411)
 (setq org-columns-default-format "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
-(setq org-todo-keywords '("TODO" "NEXT" "|" "CANCELLED" "DONE"))
+(setq org-todo-keywords '("TODO" "NEXT" "LATER" "|" "CANCELLED" "DONE"))
 (setq org-todo-keyword-faces
-      '(("CANCELLED" . "gray")))
+      '(("CANCELLED" . "gray")
+	("LATER" . "blue")))
 (setq org-capture-templates
       '(("t" "todo" entry (file org-default-notes-file)
+	 "* TODO %? \nSCHEDULED: %^t\nDEADLINE: %^t")
+	("w" "work-related todo" entry (file "~/org/work.org")
 	 "* TODO %? \nSCHEDULED: %^t")
 	("n" "Next Task" entry (file+headline org-default-notes-file "Tasks")
 	   "** NEXT %? \nDEADLINE: %t")))
@@ -131,7 +134,7 @@
 	("W" "Work-related tasks" tags-todo "work")
 	("C" "Computer-science-related tasks" tags-todo "cs")
 	("S" "School-related tasks" tags-todo "school")))
-     
+
 
 (use-package ox-hugo)
 (use-package projectile
@@ -141,8 +144,8 @@
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (use-package pdf-tools)
-(use-package org-superstar)
 (pdf-tools-install)
+(use-package org-superstar)
 
 (windmove-default-keybindings)
 (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -150,4 +153,8 @@
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
-(winner-mode 1)
+(setq org-loop-over-headlines-in-active-region t)
+(setq org-refile-targets '((nil :maxlevel . 9)
+                                (org-agenda-files :maxlevel . 9)))
+(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+(setq org-refile-use-outline-path t)                  ; Show full paths for refiling
