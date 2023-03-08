@@ -90,7 +90,7 @@
       '(("CANCELLED" . "gray")
 	("LATER" . "blue")))
 (setq org-capture-templates
-      '(("t" "todo" entry (file org-default-notes-file)
+      '(("t" "todo" entry (file "~/org/notes.org")
 	 "* TODO %? \nSCHEDULED: %^t\nDEADLINE: %^t")
 	("w" "work-related todo" entry (file "~/org/work.org")
 	 "* TODO %? \nSCHEDULED: %^t")
@@ -144,6 +144,9 @@
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (use-package pdf-tools)
+(use-package nov)
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+
 (pdf-tools-install)
 (use-package org-superstar)
 
