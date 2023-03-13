@@ -15,7 +15,7 @@
 (scroll-bar-mode -1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(set-face-attribute 'default nil :font "TerminessTTF Nerd Font" :height 150)
+(set-face-attribute 'default nil :font "TerminessTTF Nerd Font" :height 120)
 (global-set-key (kbd "<f5>") 'modus-themes-toggle)
 
 ;; Enable line numbers
@@ -85,13 +85,14 @@
 (setq org-agenda-files '("~/org/work.org" "~/org/me.org" "~/org/notes.org" "~/org/posts.org"))
 (setq org-agenda-block-separator 8411)
 (setq org-columns-default-format "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
-(setq org-todo-keywords '("TODO" "NEXT" "LATER" "|" "CANCELLED" "DONE"))
+(setq org-todo-keywords '("TODO(t)" "NEXT(n)" "LATER(l) MERGE(m)" "|" "CANCELLED(c)" "DONE(d)"))
 (setq org-todo-keyword-faces
       '(("CANCELLED" . "gray")
-	("LATER" . "blue")))
+	("LATER" . "blue")
+	 ("MERGE" . "pink")))
 (setq org-capture-templates
-      '(("t" "todo" entry (file org-default-notes-file)
-	 "* TODO %? \nSCHEDULED: %^t\nDEADLINE: %^t")
+      '(("t" "todo" entry (file "~/org/notes.org")
+	 "* TODO %?\nDEADLINE: %^t")
 	("w" "work-related todo" entry (file "~/org/work.org")
 	 "* TODO %? \nSCHEDULED: %^t")
 	("n" "Next Task" entry (file+headline org-default-notes-file "Tasks")
@@ -101,7 +102,7 @@
     '((agenda "" ((org-agenda-span 1)
                 (org-deadline-warning-days 0)
                 (org-agenda-block-separator nil)
-                (org-scheduled-past-days 7)
+                (org-scheduled-past-days 0)
                 ;; We don't need the `org-agenda-date-today'
                 ;; highlight because that only has a practical
                 ;; utility in multi-day views.
@@ -134,7 +135,8 @@
 	("W" "Work-related tasks" tags-todo "work")
 	("C" "Computer-science-related tasks" tags-todo "cs")
 	("S" "School-related tasks" tags-todo "school")))
-
+(setq org-tags-column 0) ;; make tags be closer to text
+(setq org-agenda-tags-column 0) ;; same thing but in agenda view
 
 (use-package ox-hugo)
 (use-package projectile
