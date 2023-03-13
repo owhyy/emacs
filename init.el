@@ -146,6 +146,9 @@
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (use-package pdf-tools)
+(use-package nov)
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+
 (pdf-tools-install)
 (use-package org-superstar)
 
