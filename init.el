@@ -15,7 +15,6 @@
 (scroll-bar-mode -1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(set-face-attribute 'default nil :font "TerminessTTF Nerd Font" :height 120)
 (global-set-key (kbd "<f5>") 'modus-themes-toggle)
 
 ;; Enable line numbers
@@ -85,7 +84,7 @@
 (setq org-agenda-files '("~/org/work.org" "~/org/me.org" "~/org/notes.org" "~/org/posts.org"))
 (setq org-agenda-block-separator 8411)
 (setq org-columns-default-format "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
-(setq org-todo-keywords '("TODO(t)" "NEXT(n)" "LATER(l) MERGE(m)" "|" "CANCELLED(c)" "DONE(d)"))
+(setq org-todo-keywords '("TODO(t)" "NEXT(n)" "LATER(l)" "MERGE(m)" "|" "CANCELLED(c)" "DONE(d)"))
 (setq org-todo-keyword-faces
       '(("CANCELLED" . "gray")
 	("LATER" . "blue")
@@ -153,6 +152,7 @@
 (use-package org-superstar)
 
 (windmove-default-keybindings)
+(winner-mode)
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
