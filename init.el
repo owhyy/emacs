@@ -92,11 +92,13 @@
 	 ("MERGE" . "pink")))
 (setq org-capture-templates
       '(("t" "todo" entry (file "~/org/notes.org")
-	 "* TODO %?\nDEADLINE: %^t")
+	 "* TODO %?\nSCHEDULED: %^t")
 	("w" "work-related todo" entry (file "~/org/work.org")
 	 "* TODO %? \nSCHEDULED: %^t")
 	("n" "Next Task" entry (file+headline org-default-notes-file "Tasks")
-	   "** NEXT %? \nDEADLINE: %t")))
+	 "** NEXT %? \nDEADLINE: %t")
+	("j" "Journal Entry" entry (file+headline "~/org/me.org" "Journal")
+	 "* %U")))
 
 (defvar prot-org-custom-daily-agenda
     '((agenda "" ((org-agenda-span 1)
@@ -126,8 +128,12 @@
                 (org-agenda-block-separator nil)
                 (org-agenda-entry-types '(:deadline))
                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                (org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n"))))
-  "Custom agenda for use in `org-agenda-custom-commands'.")
+                (org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")))
+    (tags-todo "work+SCHEDULED=\"<today>\""
+	       ((org-agenda-overriding-header "\nToday's work to do\n")
+		(org-agenda-span 'day)
+		(org-scheduled-past-days 0))))
+      "Custom agenda for use in `org-agenda-custom-commands'.")
 
 (setq org-agenda-custom-commands
       `(("A" "Daily agenda and top priority tasks"
@@ -151,8 +157,11 @@
 
 (pdf-tools-install)
 (use-package org-superstar)
+(use-package pdf-view-restore)
+(add-hook 'pdf-view-mode-hook 'pdf-view-restore-mode)
 
 (windmove-default-keybindings)
+(winner-mode)
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
