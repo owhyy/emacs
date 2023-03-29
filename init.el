@@ -1,4 +1,4 @@
-;; Don't use custom file
+; Don't use custom file
 (setq custom-file null-device)
 
 ;; Don't create lockfiles
@@ -101,7 +101,8 @@
 
 (defvar prot-org-custom-daily-agenda
     '((agenda "" ((org-agenda-span 1)
-                (org-deadline-warning-days 0)
+                  (org-deadline-warning-days 0)
+		  (org-deadline-past-days 0)
                 (org-agenda-block-separator nil)
                 (org-scheduled-past-days 0)
                 ;; We don't need the `org-agenda-date-today'
@@ -128,6 +129,17 @@
                 (org-agenda-entry-types '(:deadline))
                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                 (org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")))
+     (agenda "" ((org-agenda-overriding-header "Overdue")
+             (org-agenda-time-grid nil)
+             (org-agenda-start-on-weekday nil)
+             (org-agenda-show-all-dates nil)
+             (org-agenda-format-date "")  ;; Skip the date
+             (org-agenda-span 1)
+             (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+             (org-agenda-entry-types '(:deadline :scheduled))
+             (org-scheduled-past-days 999)
+             (org-deadline-past-days 999)
+             (org-deadline-warning-days 0)))
     (tags-todo "work+SCHEDULED=\"<today>\""
 	       ((org-agenda-overriding-header "\nToday's work to do\n")
 		(org-agenda-span 'day)
