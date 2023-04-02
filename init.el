@@ -79,12 +79,14 @@
 ;; Org-specific configuration
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
+(global-set-key (kbd "C-c l") #'org-store-link)
 
 (setq org-directory "~/org")
 (setq org-agenda-files '("~/org/work.org" "~/org/me.org" "~/org/notes.org" "~/org/posts.org"))
 (setq org-agenda-block-separator 8411)
 (setq org-columns-default-format "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
 (setq org-todo-keywords '("TODO(t)" "NEXT(n)" "LATER(l)" "MERGE(m)" "|" "CANCELLED(c)" "DONE(d)"))
+(setq org-log-done t)
 (setq org-todo-keyword-faces
       '(("CANCELLED" . "gray")
 	("LATER" . "blue")
@@ -98,53 +100,56 @@
 	 "** NEXT %? \nDEADLINE: %t")
 	("j" "Journal Entry" entry (file+headline "~/org/me.org" "Journal")
 	 "* %U")))
+(with-eval-after-load 'org
+  (add-to-list 'org-modules 'org-habit t))
 
 (defvar prot-org-custom-daily-agenda
     '((agenda "" ((org-agenda-span 1)
                   (org-deadline-warning-days 0)
 		  (org-deadline-past-days 0)
-                (org-agenda-block-separator nil)
-                (org-scheduled-past-days 0)
-                ;; We don't need the `org-agenda-date-today'
-                ;; highlight because that only has a practical
-                ;; utility in multi-day views.
-                (org-agenda-day-face-function (lambda (date) 'org-agenda-date))
-                (org-agenda-format-date "%A %-e %B %Y")
-                (org-agenda-overriding-header "Today's agenda\n")))
-    (agenda "" ((org-agenda-start-on-weekday nil)
-                (org-agenda-start-day "+1d")
-                (org-agenda-span 3)
-                (org-deadline-warning-days 0)
-                (org-agenda-block-separator nil)
-                (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                (org-agenda-overriding-header "\nNext three days\n")))
-    (agenda "" ((org-agenda-start-on-weekday nil)
-                ;; We don't want to replicate the previous section's
-                ;; three days, so we start counting from the day after.
-                (org-agenda-start-day "+4d")
-                (org-agenda-span 14)
-                (org-agenda-show-all-dates nil)
-                (org-deadline-warning-days 0)
-                (org-agenda-block-separator nil)
-                (org-agenda-entry-types '(:deadline))
-                (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                (org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")))
-     (agenda "" ((org-agenda-overriding-header "Overdue")
-             (org-agenda-time-grid nil)
-             (org-agenda-start-on-weekday nil)
-             (org-agenda-show-all-dates nil)
-             (org-agenda-format-date "")  ;; Skip the date
-             (org-agenda-span 1)
-             (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-             (org-agenda-entry-types '(:deadline :scheduled))
-             (org-scheduled-past-days 999)
-             (org-deadline-past-days 999)
-             (org-deadline-warning-days 0)))
-    (tags-todo "work+SCHEDULED=\"<today>\""
-	       ((org-agenda-overriding-header "\nToday's work to do\n")
-		(org-agenda-span 'day)
-		(org-scheduled-past-days 0))))
-      "Custom agenda for use in `org-agenda-custom-commands'.")
+                  (org-agenda-block-separator nil)
+                  (org-scheduled-past-days 0)
+		  (org-agenda-show-log t)
+                  ;; We don't need the `org-agenda-date-today'
+                  ;; highlight because that only has a practical
+                  ;; utility in multi-day views.
+                  (org-agenda-day-face-function (lambda (date) 'org-agenda-date))
+                  (org-agenda-format-date "%A %-e %B %Y")
+                  (org-agenda-overriding-header "Today's agenda\n")))
+      (agenda "" ((org-agenda-start-on-weekday nil)
+                  (org-agenda-start-day "+1d")
+                  (org-agenda-span 3)
+                  (org-deadline-warning-days 0)
+                  (org-agenda-block-separator nil)
+                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                  (org-agenda-overriding-header "\nNext three days\n")))
+      (agenda "" ((org-agenda-start-on-weekday nil)
+                  ;; We don't want to replicate the previous section's
+                  ;; three days, so we start counting from the day after.
+                  (org-agenda-start-day "+4d")
+                  (org-agenda-span 14)
+                  (org-agenda-show-all-dates nil)
+                  (org-deadline-warning-days 0)
+                  (org-agenda-block-separator nil)
+                  (org-agenda-entry-types '(:deadline))
+                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                  (org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")))
+      (agenda "" ((org-agenda-overriding-header "Overdue")
+		  (org-agenda-time-grid nil)
+		  (org-agenda-start-on-weekday nil)
+		  (org-agenda-show-all-dates nil)
+		  (org-agenda-format-date "")  ;; Skip the date
+		  (org-agenda-span 1)
+		  (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+		  (org-agenda-entry-types '(:deadline :scheduled))
+		  (org-scheduled-past-days 999)
+		  (org-deadline-past-days 999)
+		  (org-deadline-warning-days 0)))
+      (tags-todo "work+SCHEDULED=\"<today>\""
+		 ((org-agenda-overriding-header "\nToday's work to do\n")
+		  (org-agenda-span 'day)
+		  (org-scheduled-past-days 0))))
+    "Custom agenda for use in `org-agenda-custom-commands'.")
 
 (setq org-agenda-custom-commands
       `(("A" "Daily agenda and top priority tasks"
