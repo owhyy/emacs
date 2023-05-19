@@ -55,6 +55,7 @@
 (load-theme 'modus-vivendi :no-confirm)
 ;; Fonts
 (use-package all-the-icons)
+(set-frame-font "Iosevka 11" nil t)
 
 ;; Autocompletion
 (use-package ivy-rich
@@ -75,6 +76,9 @@
 
 (use-package olivetti
   :bind (("C-x z" . olivetti-mode)))
+
+(use-package ag)
+(use-package js2-mode)
 
 ;; Org-specific configuration
 (global-set-key (kbd "C-c a") #'org-agenda)
@@ -189,3 +193,17 @@
 (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
 (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
 (setq org-hide-emphasis-markers t)
+; add newlines if on last line
+(setq next-line-add-newlines t)
+
+(setq js2-mode t)
+
+(require 'multiple-cursors)
+
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+(require 'prettier-js)
+(add-hook 'js2-mode-hook 'prettier-js-mode)
