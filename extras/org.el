@@ -153,11 +153,11 @@
 
 	(setq org-capture-templates
               '(("t" "Default Capture" entry (file "inbox.org")
-		 "* TODO %?\n%U\n%i")
-		("w" "work-related todo" entry (file "work.org")
-		 "* TODO %?\n%U\n%i")
+		 "* TODO %?\n:CREATED: %U\n%i")
+		("w" "work-related todo" entry (file+olp "work.org" "EBS Integrator" "2023" "Tasks")
+		 "* TODO %?\n:CREATED: %U\n%i")
 		("i" "idea" entry (file "inbox.org")
-		 "* IDEA %?\n%U\n%i")))
+		 "* IDEA %?\n:CREATED: %U\n%i")))
 
 	(defvar prot-org-custom-daily-agenda
 	  '((agenda "" ((org-agenda-span 1)
