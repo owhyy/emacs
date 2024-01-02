@@ -85,8 +85,6 @@ If the new path's directories does not exist, create them."
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Show the help buffer after startup
-(add-hook 'after-init-hook 'help-quick)
 
 ;; which-key: shows a popup of available keybindings when typing a long key
 ;; sequence (e.g. C-x ...)
@@ -233,7 +231,7 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
+   '(php-mode activity-watch-mode wakatime-mode org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

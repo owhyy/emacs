@@ -40,7 +40,8 @@
           (typescript-mode . typescript-ts-mode)
           (json-mode . json-ts-mode)
           (css-mode . css-ts-mode)
-          (python-mode . python-ts-mode)))
+	  (php-mode . php-ts-mode)
+         (python-mode . python-ts-mode)))
   :hook
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))
@@ -71,6 +72,9 @@
 (use-package json-mode
   :ensure t)
 
+(use-package php-mode
+  :ensure t)
+
 ;; Emacs ships with a lot of popular programming language modes. If it's not
 ;; built in, you're almost certain to find a mode for the language you're
 ;; looking for with a quick Internet search.
@@ -85,8 +89,9 @@
   ;; no :ensure t here because it's built-in
 
   ;; Configure hooks to automatically turn-on eglot for selected modes
-  ; :hook
-  ; (((python-mode ruby-mode elixir-mode) . eglot))
+  :hook
+  (php-mode . eglot-ensure)
+  ;(((python-mode ruby-mode elixir-mode php-mode) . eglot))
 
   :custom
   (eglot-send-changes-idle-time 0.1)
@@ -94,6 +99,9 @@
   :config
   (fset #'jsonrpc--log-event #'ignore)  ; massive perf boost---don't log every event
   ;; Sometimes you need to tell Eglot where to find the language server
-  ; (add-to-list 'eglot-server-programs
-  ;              '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
-  )
+  (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio"))
+)
+
+(use-package activity-watch-mode
+  :config
+  (global-activity-watch-mode))
