@@ -154,3 +154,7 @@
   :ensure t
   :config
   (setq wgrep-auto-save-buffer t))
+
+;; Show git diffs
+(use-package git-gutter
+  :ensure t)

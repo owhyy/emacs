@@ -60,6 +60,9 @@
 ;; Move through windows with Ctrl-<arrow keys>
 (windmove-default-keybindings 'control) ; You can use other modifiers here
 
+;; Save history of buffers
+(winner-mode 1)
+
 ;; Fix archaic defaults
 (setq sentence-end-double-space nil)
 
@@ -231,7 +234,7 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(php-mode activity-watch-mode wakatime-mode org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
+   '(modus-themes git-gutter python-mode php-mode activity-watch-mode wakatime-mode org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

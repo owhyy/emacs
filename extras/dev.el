@@ -75,6 +75,9 @@
 (use-package php-mode
   :ensure t)
 
+(use-package python-mode
+  :ensure t)
+
 ;; Emacs ships with a lot of popular programming language modes. If it's not
 ;; built in, you're almost certain to find a mode for the language you're
 ;; looking for with a quick Internet search.
@@ -91,6 +94,7 @@
   ;; Configure hooks to automatically turn-on eglot for selected modes
   :hook
   (php-mode . eglot-ensure)
+  (python-mode . eglot-ensure)
   ;(((python-mode ruby-mode elixir-mode php-mode) . eglot))
 
   :custom
@@ -100,6 +104,7 @@
   (fset #'jsonrpc--log-event #'ignore)  ; massive perf boost---don't log every event
   ;; Sometimes you need to tell Eglot where to find the language server
   (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio"))
+  (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio")))
 )
 
 (use-package activity-watch-mode
