@@ -171,3 +171,14 @@
 ;; Show git diffs
 (use-package git-gutter
   :ensure t)
+
+
+(use-package jinx
+  :hook (emacs-startup . global-jinx-mode)
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
+  
+  :config
+  (vertico-multiform-mode 1)
+  (add-to-list 'vertico-multiform-categories
+               '(jinx grid (vertico-grid-annotate . 20)))
