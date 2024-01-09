@@ -113,3 +113,6 @@
 (use-package activity-watch-mode
   :config
   (global-activity-watch-mode))
+
+;; Don't create separate window for ediff
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
