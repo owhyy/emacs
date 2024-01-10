@@ -170,7 +170,9 @@
 
 ;; Show git diffs
 (use-package git-gutter
-  :ensure t)
+  :ensure t
+  :config
+  (global-git-gutter-mode))
 
 
 (use-package jinx
