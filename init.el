@@ -61,7 +61,7 @@
 (windmove-default-keybindings 'control) ; You can use other modifiers here
 
 ;; Save history of buffers
-(winner-mode 1)
+(winner-mode)
 
 ;; Fix archaic defaults
 (setq sentence-end-double-space nil)
@@ -69,6 +69,10 @@
 ;; Make right-click do something sensible
 (when (display-graphic-p)
   (context-menu-mode))
+
+;; Toggle repeats
+(repeat-mode)
+
 
 ;; Don't litter file system with *~ backup files; put them all inside
 ;; ~/.emacs.d/backup or wherever
@@ -119,11 +123,6 @@ If the new path's directories does not exist, create them."
 ;(setq completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
 
 (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
-
-;; For a fancier built-in completion option, try ido-mode or fido-mode. See also
-;; the file extras/base.el
-;(fido-vertical-mode)
-;(setq icomplete-delay-completions-threshold 4000)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -234,7 +233,7 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(jinx web-mode modus-themes git-gutter python-mode php-mode activity-watch-mode wakatime-mode org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
+   '(nov jinx web-mode modus-themes git-gutter python-mode php-mode activity-watch-mode wakatime-mode org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

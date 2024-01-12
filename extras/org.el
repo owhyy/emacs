@@ -114,6 +114,11 @@
   :config
   (pdf-tools-install))
 
+;; Epub viewer
+(use-package nov
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+
 (use-package org
   :hook ((org-mode . visual-line-mode))  ; wrap lines at word breaks
 
