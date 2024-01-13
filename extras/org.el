@@ -83,14 +83,6 @@
 (setq org-refile-targets '((nil :maxlevel . 9)
                            (org-agenda-files :maxlevel . 9)))
 
-;;; Optional variables
-
-;; Advanced: Custom link types
-;; This example is for linking a person's 7-character ID to their page on the
-;; free genealogy website Family Search.
-(setq org-link-abbrev-alist
-      '(("family_search" . "https://www.familysearch.org/tree/person/details/%s")))
-
 ;; Allow converting to markdown using hugo
 (use-package ox-hugo
   :ensure t   ;Auto-install the package from Melpa
@@ -206,15 +198,12 @@
 			(org-scheduled-past-days 999)
 			(org-deadline-past-days 999)
 			(org-deadline-warning-days 0)))
-	    (tags-todo "work+SCHEDULED=\"<today>\""
-		       ((org-agenda-overriding-header "\nToday's work to do\n")
-			(org-agenda-span 'day)
-			(org-scheduled-past-days 0))))
+	    (tags-todo "inbox"
+                     ((org-agenda-prefix-format "  %?-12t% s")
+                      (org-agenda-overriding-header "\nInbox\n"))))
 	  "Custom agenda for use in `org-agenda-custom-commands'.")
 
 	(setq org-agenda-custom-commands
 	      `(("A" "Daily agenda and top priority tasks"
-		 ,prot-org-custom-daily-agenda)
-		("w" "Work" agenda ""
-		 ((org-agenda-files '("work.org")))))))
+		 ,prot-org-custom-daily-agenda))))
   
