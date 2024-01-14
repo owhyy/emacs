@@ -233,7 +233,7 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(nov jinx web-mode modus-themes git-gutter python-mode php-mode activity-watch-mode wakatime-mode org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
+   '(expand-region multiple-cursors nov jinx web-mode modus-themes git-gutter python-mode php-mode activity-watch-mode wakatime-mode org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

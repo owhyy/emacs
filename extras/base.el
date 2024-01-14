@@ -184,3 +184,17 @@
   (vertico-multiform-mode 1)
   (add-to-list 'vertico-multiform-categories
                '(jinx grid (vertico-grid-annotate . 20)))
+
+;; Use C-= for jetbrains-like C-w expand
+(use-package expand-region
+  :ensure t
+  :config
+  (global-set-key (kbd "C-=") 'er/expand-region))
+
+;; Multiple cursors because why the hell not?
+(use-package multiple-cursors
+  :ensure t
+  :config
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
