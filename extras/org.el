@@ -26,11 +26,11 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;;   Critical variables
+;;;   critical variables
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; These variables need to be set for Org-mode's full power to be unlocked!
+;;; these variables need to be set for Org-mode's full power to be unlocked!
 ;;;
 ;;; You can read the documentation for any variable with `C-h v'. If you have
 ;;; Consult configured (see the `base.el' file) then it should help you find
@@ -39,42 +39,7 @@
 ;; Agenda variables
 (setq org-directory "~/org/")
 
-(setq org-agenda-files '("inbox.org" "work.org" "notes.org"))
-
-;; Default tags
-;; TODO: figure out if i can somehow group them to start with a key
-;; like, for projects, i want to first press p, and then each of the key, and so on.
-(setq org-tag-alist '(
-		      (:startgrouptag)
-		      ("work")
-		      (:grouptags)
-		      ("meapp" . ?m)
-		      ("gorgias" . ?g)
-		      ("taxfix" . ?t)
-		      ("codereview" . ?r)
-		      (:endgrouptag)
-     		      (:endgrouptag)
-		      (:newline)
-                      ;; locale
-                      (:startgroup)
-                      ("home" . ?h)
-                      ("school" . ?s)
-		      ("selfstudy" . ?S)
-                      (:endgroup)
-                      (:newline)
-                      ;; scale
-                      (:startgroup)
-                      ("project" . ?j)
-                      ("onetime" . ?O)
-                      (:endgroup)
-                      ;; misc
-                      ("review")
-		      ("paper")
-		      ("buy" . ?b)
-		      ("checkout" . ?c)
-		      ("online" . ?i)
-		      ("offline" . ?o)
-                      ("reading" . ?R)))
+(setq org-agenda-files '("inbox.org" "work.org" "notes.org" "projects.org"))
 
 ;; Apply commands over headlines in active region only
 (setq org-loop-over-headlines-in-active-region t)
@@ -135,26 +100,21 @@
   ;; Instead of just two states (TODO, DONE) we set up a few different states
   ;; that a task can be in.
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "IDEA(i)" "WAITING(w@/!)" "STARTED(s!)" "LATER(l@/!)" "|" "DONE(d!)" "CANCELLED(c@/!)")))
+        '((sequence "TODO(t)" "|" "DONE(d!)" "CANCELLED(c@/!)" "HOLD(H@)")))
   
   (setq org-todo-keyword-faces
 	'(("CANCELLED" . "gray")
-	  ("LATER" . "blue")
-	  ("WAITING" . "cyan")
-	  ("IDEA" . "magenta")
-	  ("STARTED" . "yellow")))
+	  ("HOLD" . "blue")))
 
 	;; Refile configuration
 	(setq org-outline-path-complete-in-steps nil)
 	(setq org-refile-use-outline-path 'file)
 
 	(setq org-capture-templates
-              '(("t" "Default Capture" entry (file "inbox.org")
+              '(("i" "Inbox" entry (file "inbox.org")
 		 "* TODO %?\n:CREATED: %U\n%i")
-		("w" "work-related todo" entry (file+olp "work.org" "EBS Integrator" "2023" "Tasks")
-		 "* TODO %?\n:CREATED: %U\n%i")
-		("i" "idea" entry (file "inbox.org")
-		 "* IDEA %?\n:CREATED: %U\n%i")))
+		("n" "Note" entry (file "raw-notes.org")
+		 "* %?\n:CREATED: %U\n%i")))
 
 	(defvar prot-org-custom-daily-agenda
 	  '((agenda "" ((org-agenda-span 1)
