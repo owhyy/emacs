@@ -43,4 +43,5 @@
                             (background-color . "#000000")
                             (ns-appearance . dark)
                             (ns-transparent-titlebar . t)))
-
+;; Disable stupid bell
+(setq ring-bell-function 'ignore)
