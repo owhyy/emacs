@@ -148,6 +148,7 @@
 			(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
 			(org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")))
 	    (agenda "" ((org-agenda-overriding-header "Overdue")
+			(org-scheduled-delay-days 1)
 			(org-agenda-time-grid nil)
 			(org-agenda-start-on-weekday nil)
 			(org-agenda-show-all-dates nil)
