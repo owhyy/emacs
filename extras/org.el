@@ -54,6 +54,7 @@
   :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
   :after ox)
 
+;; Allow journaling in emacs
 (use-package org-journal
   :ensure t
   :defer t
@@ -68,13 +69,20 @@
 
 ;; Not really org-related but still. Better pdf viewer than the default docview
 (use-package pdf-tools
+  :ensure t
   :config
   (pdf-tools-install))
 
 ;; Epub viewer
 (use-package nov
+  :ensure t
   :config
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+
+;; Prettier bullets
+(use-package org-bullets
+  :ensure t
+  :hook ((org-mode . org-bullets-mode)))
 
 (use-package org
   :hook ((org-mode . visual-line-mode))  ; wrap lines at word breaks
@@ -86,8 +94,13 @@
               ("C-c l i" . org-insert-link-global)) ; Mnemonic: link → insert
   :config
   (require 'oc-csl)                     ; citation support
+  ;; Allow exporting in markdown
   (add-to-list 'org-export-backends 'md)
 
+  ;; Custom effort: 15 minutes, 1 hour or 4 hours
+  (customize-set-variable 'org-global-properties
+                          '(("Effort_ALL" . "0 0:15 1:00 4:00")))
+  
   ;; Make org-open-at-point follow file links in the same window
   (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file)
 
@@ -96,26 +109,34 @@
 
   ;; Log time at which task was finished
   (setq org-log-done t)
+
+  ;; Show effort next to task
+  (setq org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t%-6e% s")
+                                   (todo . " %i %-12:c %-6e")
+                                   (tags . " %i %-12:c")
+                                   (search . " %i %-12:c")))
   
-  ;; Instead of just two states (TODO, DONE) we set up a few different states
-  ;; that a task can be in.
+  ;; Set states that task can be in: CANCELLED and WAITING
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "|" "DONE(d!)" "CANCELLED(c@/!)" "HOLD(H@)")))
-  
+        '((sequence "TODO(t)" "|" "DONE(d!)" "CANCELLED(c@/!)" "WAITING(W@)")))
+
+  ;; Set colors for the keywords
   (setq org-todo-keyword-faces
 	'(("CANCELLED" . "gray")
-	  ("HOLD" . "blue")))
+	  ("WAITING" . "blue")))
 
 	;; Refile configuration
 	(setq org-outline-path-complete-in-steps nil)
 	(setq org-refile-use-outline-path 'file)
 
+	;; Create entries by using C-c c i for inbox and C-c c n for notes
 	(setq org-capture-templates
               '(("i" "Inbox" entry (file "inbox.org")
 		 "* TODO %?\n:CREATED: %U\n%i")
 		("n" "Note" entry (file "raw-notes.org")
 		 "* %?\n:CREATED: %U\n%i")))
-
+	
+	;; Configure org-agenda view
 	(defvar prot-org-custom-daily-agenda
 	  '((agenda "" ((org-agenda-span 1)
 			(org-deadline-warning-days 0)
@@ -160,8 +181,8 @@
 			(org-deadline-past-days 999)
 			(org-deadline-warning-days 0)))
 	    (tags-todo "inbox"
-                     ((org-agenda-prefix-format "  %?-12t% s")
-                      (org-agenda-overriding-header "\nInbox\n"))))
+                       ((org-agenda-prefix-format "  %?-12t%-6e% s")
+			(org-agenda-overriding-header "\nInbox\n"))))
 	  "Custom agenda for use in `org-agenda-custom-commands'.")
 
 	(setq org-agenda-custom-commands

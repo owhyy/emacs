@@ -81,6 +81,9 @@
 (use-package python-mode
   :ensure t)
 
+(use-package js2-mode
+  :ensure t)
+
 ;; Emacs ships with a lot of popular programming language modes. If it's not
 ;; built in, you're almost certain to find a mode for the language you're
 ;; looking for with a quick Internet search.
@@ -98,6 +101,7 @@
   :hook
   (php-mode . eglot-ensure)
   (python-mode . eglot-ensure)
+  (js2-mode . eglot-ensure)
   ;(((python-mode ruby-mode elixir-mode php-mode) . eglot))
 
   :custom
@@ -111,6 +115,7 @@
 )
 
 (use-package activity-watch-mode
+  :ensure t
   :config
   (global-activity-watch-mode))
 
