@@ -41,7 +41,7 @@
           (json-mode . json-ts-mode)
           (css-mode . css-ts-mode)
 	  (php-mode . php-ts-mode)
-         (python-mode . python-ts-mode)))
+          (python-mode . python-ts-mode)))
   :hook
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))
@@ -114,10 +114,28 @@
   (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio")))
 )
 
+;; activitywatch integration to track time spent in emacs
+;; and see what I've been working on
 (use-package activity-watch-mode
   :ensure t
   :config
   (global-activity-watch-mode))
 
+;; Python virtual env management
+(use-package pyvenv
+  :ensure t
+  :config
+  (pyvenv-mode t)
+
+  ;; Set correct Python interpreter
+  (setq pyvenv-post-activate-hooks
+        (list (lambda ()
+                (setq python-shell-interpreter (concat pyvenv-virtual-env "bin/python3")))))
+  (setq pyvenv-post-deactivate-hooks
+        (list (lambda ()
+                (setq python-shell-interpreter "python3")))))
+
 ;; Don't create separate window for ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))

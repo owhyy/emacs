@@ -44,6 +44,8 @@
 ;; Apply commands over headlines in active region only
 (setq org-loop-over-headlines-in-active-region t)
 
+(setq org-image-actual-width nil)
+
 ;; Refile up to 9 headings deep
 (setq org-refile-targets '((nil :maxlevel . 9)
                            (org-agenda-files :maxlevel . 9)))

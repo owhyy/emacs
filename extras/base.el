@@ -175,15 +175,15 @@
   (global-git-gutter-mode))
 
 
-(use-package jinx
-  :hook (emacs-startup . global-jinx-mode)
-  :bind (("M-$" . jinx-correct)
-         ("C-M-$" . jinx-languages)))
+;; (use-package jinx
+;;   :hook (emacs-startup . global-jinx-mode)
+;;   :bind (("M-$" . jinx-correct)
+;;          ("C-M-$" . jinx-languages)))
   
-  :config
-  (vertico-multiform-mode 1)
-  (add-to-list 'vertico-multiform-categories
-               '(jinx grid (vertico-grid-annotate . 20)))
+;;   :config
+;;   (vertico-multiform-mode 1)
+;;   (add-to-list 'vertico-multiform-categories
+;;                '(jinx grid (vertico-grid-annotate . 20)))
 
 ;; Use C-= for jetbrains-like C-w expand
 (use-package expand-region
