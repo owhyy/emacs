@@ -182,9 +182,9 @@
 			(org-scheduled-past-days 999)
 			(org-deadline-past-days 999)
 			(org-deadline-warning-days 0)))
-	    (tags-todo "inbox"
-                       ((org-agenda-prefix-format "  %?-12t%-6e% s")
-			(org-agenda-overriding-header "\nInbox\n"))))
+	    (todo "TODO" ((org-agenda-overriding-header "Inbox")
+			  (org-agenda-skip-function '(org-agenda-skip-entry-if 'done 'scheduled 'deadline)))))
+
 	  "Custom agenda for use in `org-agenda-custom-commands'.")
 
 	(setq org-agenda-custom-commands
