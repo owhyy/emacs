@@ -120,7 +120,7 @@
   
   ;; Set states that task can be in: CANCELLED and WAITING
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "|" "DONE(d!)" "CANCELLED(c@/!)" "WAITING(W@)")))
+        '((sequence "TODO(t)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@/!)")))
 
   ;; Set colors for the keywords
   (setq org-todo-keyword-faces
