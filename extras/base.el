@@ -112,7 +112,13 @@
   (:map corfu-map
         ("SPC" . corfu-insert-separator)
         ("C-n" . corfu-next)
-        ("C-p" . corfu-previous)))
+        ("C-p" . corfu-previous))
+  :config
+  (setq completion-category-overrides '((eglot (styles orderless))
+					(eglot-capf (styles orderless))))
+  (setq completion-category-defaults nil)
+  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
+  )
 
 ;; Part of corfu
 (use-package corfu-popupinfo
@@ -136,8 +142,8 @@
 (use-package cape
   :ensure t
   :init
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  (add-to-list 'completion-at-point-functions #'cape-file))
+  )
+
 
 ;; Pretty icons for corfu
 (use-package kind-icon

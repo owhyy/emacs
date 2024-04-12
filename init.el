@@ -113,6 +113,7 @@ If the new path's directories does not exist, create them."
 (setq completions-detailed t)                        ; Show annotations
 (setq tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
 (setq completion-styles '(basic initials substring)) ; Different styles to match input to candidates
+(setq read-extended-command-predicate #'command-completion-default-include-p)
 
 (setq completion-auto-help 'always)                  ; Open completion always; `lazy' another option
 (setq completions-max-height 20)                     ; This is arbitrary
@@ -121,6 +122,9 @@ If the new path's directories does not exist, create them."
 (setq completions-group t)
 (setq completion-auto-select 'second-tab)            ; Much more eager
 ;(setq completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
+(advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
+(advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify)
+
 
 (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
 
@@ -190,11 +194,26 @@ If the new path's directories does not exist, create them."
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key (kbd "<f5>") 'modus-themes-toggle)
 
-(use-package emacs
+;; (use-package emacs
+;;   :config
+;;   (modus-themes-load-themes 'modus-vivendi))          ; for light theme, use modus-operandi
+
+(use-package modus-themes
+  :ensure t
   :config
-  (load-theme 'modus-vivendi))          ; for light theme, use modus-operandi
+  ;; Add all your customizations prior to loading the themes
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs nil)
+
+  ;; Maybe define some palette overrides, such as by using our presets
+  (setq modus-themes-common-palette-overrides
+        modus-themes-preset-overrides-intense)
+
+  ;; Load the theme of your choice.
+  (load-theme 'modus-operandi :no-confirm)
+
+  (define-key global-map (kbd "<f5>") #'modus-themes-toggle))
 
 ;; Font
 (set-frame-font "Iosevka Comfy 10" nil t)
@@ -218,6 +237,9 @@ If the new path's directories does not exist, create them."
 ;; Org-mode configuration
 (load-file (expand-file-name "extras/org.el" user-emacs-directory))
 
+;; Secrets
+(load-file (expand-file-name "extras/secrets.el" user-emacs-directory))
+
 (use-package exec-path-from-shell
   :ensure t
   :config
@@ -234,8 +256,10 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("1ea82e39d89b526e2266786886d1f0d3a3fa36c87480fad59d8fab3b03ef576e" default))
  '(package-selected-packages
-   '(pyvenv ef-themes org-timeblock enwc telega expand-region multiple-cursors nov jinx web-mode modus-themes git-gutter python-mode php-mode activity-watch-mode wakatime-mode org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
+   '(org-contacts pet auto-virtualenv pyvenv ef-themes org-timeblock enwc telega expand-region multiple-cursors nov jinx web-mode modus-themes git-gutter python-mode php-mode activity-watch-mode wakatime-mode org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

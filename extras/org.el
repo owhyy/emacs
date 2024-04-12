@@ -86,6 +86,12 @@
   :ensure t
   :hook ((org-mode . org-bullets-mode)))
 
+
+(use-package org-contacts
+  :ensure nil
+  :after org
+  :custom (org-contacts-files '("~/org/contacts.org")))
+
 (use-package org
   :hook ((org-mode . visual-line-mode))  ; wrap lines at word breaks
 
@@ -136,7 +142,16 @@
               '(("i" "Inbox" entry (file "inbox.org")
 		 "* TODO %?\n:CREATED: %U\n%i")
 		("n" "Note" entry (file "raw-notes.org")
-		 "* %?\n:CREATED: %U\n%i")))
+		 "* %?\n:CREATED: %U\n%i")
+		("c" "Contact" entry (file+headline "~/org/contacts.org" "Contacts")
+		 "* %(org-contacts-template-name)
+:PROPERTIES:
+:ADDRESS: %^{289 Cleveland St. Brooklyn, 11206 NY, USA}
+:BIRTHDAY: %^{yyyy-mm-dd}
+:EMAIL: %(org-contacts-template-email)
+:NOTE: %^{NOTE}
+:END:"
+		 :empty-lines 1)))
 	
 	;; Configure org-agenda view
 	(defvar prot-org-custom-daily-agenda

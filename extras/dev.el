@@ -79,7 +79,16 @@
   :ensure t)
 
 (use-package python-mode
-  :ensure t)
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode)))
+
+
+(use-package pet
+  :ensure t
+  :config
+  (add-hook 'python-base-mode-hook 'pet-mode -10))
+
 
 (use-package js2-mode
   :ensure t)
@@ -102,12 +111,13 @@
   (php-mode . eglot-ensure)
   (python-mode . eglot-ensure)
   (js2-mode . eglot-ensure)
-  ;(((python-mode ruby-mode elixir-mode php-mode) . eglot))
 
   :custom
   (eglot-send-changes-idle-time 0.1)
 
   :config
+  (setq completion-category-defaults nil)
+  (setq eglot-ignored-server-capabilities '(:inlayHintProvider))
   (fset #'jsonrpc--log-event #'ignore)  ; massive perf boost---don't log every event
   ;; Sometimes you need to tell Eglot where to find the language server
   (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio"))
@@ -121,21 +131,17 @@
   :config
   (global-activity-watch-mode))
 
-;; Python virtual env management
-(use-package pyvenv
-  :ensure t
-  :config
-  (pyvenv-mode t)
-
-  ;; Set correct Python interpreter
-  (setq pyvenv-post-activate-hooks
-        (list (lambda ()
-                (setq python-shell-interpreter (concat pyvenv-virtual-env "bin/python3")))))
-  (setq pyvenv-post-deactivate-hooks
-        (list (lambda ()
-                (setq python-shell-interpreter "python3")))))
-
 ;; Don't create separate window for ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(defun my/eglot-capf ()
+  (setq-local completion-at-point-functions
+	      (list (cape-capf-super
+		     #'cape-dabbrev
+		     #'cape-file
+		     #'eglot-completion-at-point)
+		    )
+	      cape-dabbrev-min-length 5
+	      ))
+
+(add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
