@@ -137,7 +137,7 @@
 (defun my/eglot-capf ()
   (setq-local completion-at-point-functions
 	      (list (cape-capf-super
-		     #'cape-dabbrev
+		     ;; #'cape-dabbrev
 		     #'cape-file
 		     #'eglot-completion-at-point)
 		    )
@@ -145,3 +145,9 @@
 	      ))
 
 (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
+
+(use-package ruff-format
+  :ensure t
+  :hook
+  
+  ((python-mode . ruff-format-on-save-mode)))

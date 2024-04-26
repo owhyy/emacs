@@ -259,7 +259,7 @@ If the new path's directories does not exist, create them."
  '(custom-safe-themes
    '("1ea82e39d89b526e2266786886d1f0d3a3fa36c87480fad59d8fab3b03ef576e" default))
  '(package-selected-packages
-   '(org-contacts pet auto-virtualenv pyvenv ef-themes org-timeblock enwc telega expand-region multiple-cursors nov jinx web-mode modus-themes git-gutter python-mode php-mode activity-watch-mode wakatime-mode org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
+   '(ruff-format js2-mode json-mode yaml-mode org-contacts pet auto-virtualenv pyvenv ef-themes org-timeblock enwc telega expand-region multiple-cursors nov jinx web-mode modus-themes git-gutter python-mode php-mode activity-watch-mode wakatime-mode org-journal pdf-tools ox-hugo markdown-mode wgrep orderless kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy magit which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
