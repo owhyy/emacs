@@ -101,7 +101,13 @@
               ("C-c l s" . org-store-link)          ; Mnemonic: link → store
               ("C-c l i" . org-insert-link-global)) ; Mnemonic: link → insert
   :config
-  (require 'oc-csl)                     ; citation support
+
+  ;; Citation support
+  (require 'oc-csl)
+
+  ;; Don't open dedicated buffer when creating a source code block
+  (defun org-edit-src-code nil)
+  
   ;; Allow exporting in markdown
   (add-to-list 'org-export-backends 'md)
 
