@@ -54,6 +54,12 @@
 (setq switch-to-buffer-in-dedicated-window 'pop)
 (setq switch-to-buffer-obey-display-actions t)
 
+(use-package expand-region
+  :ensure t
+  :config
+  (require 'expand-region)
+  :bind ("C-=" .  'er/expand-region))
+
 (use-package vertico
   :ensure t
   :hook (after-init . vertico-mode)
@@ -152,7 +158,7 @@
 (use-package python-mode
   :ensure t
   :config
-  (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode)))
+  (add-to-list 'auto-mode-alist '("\\.py[iw]?\\'" . python-mode)))
 
 (use-package go-mode
   :ensure t
@@ -336,6 +342,16 @@
 ;;   (setq org-journal-dir "~/org/journal/"
 ;;         org-journal-date-format "%A, %d %B %Y"))
 
+(use-package ruff-format
+  :ensure t
+  :hook
+  ((python-mode . ruff-format-on-save-mode)))
+
+(use-package activity-watch-mode
+  :ensure t
+  :config
+  (global-activity-watch-mode))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -344,7 +360,7 @@
  '(custom-safe-themes
    '("0f76f9e0af168197f4798aba5c5ef18e07c926f4e7676b95f2a13771355ce850" "c7a926ad0e1ca4272c90fce2e1ffa7760494083356f6bb6d72481b879afce1f2" default))
  '(package-selected-packages
-   '(org-journal elixir-mode php-mode json-mode python-mode magit corfu go-mode ef-themes add-node-modules-path avy consult marginalia which-key vertico pdf-tools orderless nov modus-themes)))
+   '(verb activity-watch-mode ruff-format expand-region pyvenv pyenv-mode org-journal elixir-mode php-mode json-mode python-mode magit corfu go-mode ef-themes add-node-modules-path avy consult marginalia which-key vertico pdf-tools orderless nov modus-themes)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
