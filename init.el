@@ -347,10 +347,20 @@
   :hook
   ((python-mode . ruff-format-on-save-mode)))
 
-(use-package activity-watch-mode
+(use-package embark-consult
+  :ensure t)
+
+(use-package embark
   :ensure t
   :config
-  (global-activity-watch-mode))
+  (setq embark-indicators '(embark--vertico-indicator embark-minimal-indicator embark-highlight-indicator))
+  :bind
+  (("C-c e" . embark-act)))
+
+(use-package lua-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.lua\\'" . lua-mode)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -360,7 +370,7 @@
  '(custom-safe-themes
    '("0f76f9e0af168197f4798aba5c5ef18e07c926f4e7676b95f2a13771355ce850" "c7a926ad0e1ca4272c90fce2e1ffa7760494083356f6bb6d72481b879afce1f2" default))
  '(package-selected-packages
-   '(verb activity-watch-mode ruff-format expand-region pyvenv pyenv-mode org-journal elixir-mode php-mode json-mode python-mode magit corfu go-mode ef-themes add-node-modules-path avy consult marginalia which-key vertico pdf-tools orderless nov modus-themes)))
+   '(embark-consult embark lua-mode evil verb activity-watch-mode ruff-format expand-region pyvenv pyenv-mode org-journal elixir-mode php-mode json-mode python-mode magit corfu go-mode ef-themes add-node-modules-path avy consult marginalia which-key vertico pdf-tools orderless nov modus-themes)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
